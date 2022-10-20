@@ -4,7 +4,7 @@ export BLAS_LIBS=$MKL
 export LAPACK_LIBS=$MKL
 export FFT_LIBS=$MKL
 export IFLAGS="-I../include -I$MKLROOT/include/fftw"
-./configure --with-scalapack=yes --enable-parallel 
+./configure --with-scalapack=yes --enable-parallel MPIF90=mpiifort 
 
 
 

@@ -3,7 +3,7 @@
     restart_mode='from_scratch',
     prefix='pt',
     pseudo_dir = './',
-    outdir='./'
+    outdir='./output/'
  /
  &system
     ibrav=  2, celldm(1) =7.42, nat=  1, ntyp= 1,

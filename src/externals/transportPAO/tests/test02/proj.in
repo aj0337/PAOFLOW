@@ -1,6 +1,6 @@
    &PROJWFC
       prefix='alh',
-      outdir = './'
+      outdir = './output/'
       filpdos='./alh'
       lwrite_overlaps = .TRUE.
    /

@@ -27,7 +27,7 @@ from PAOFLOW import PAOFLOW
 
 def main():
 
-  paoflow = PAOFLOW.PAOFLOW(savedir='pt.save', smearing='m-p')
+    paoflow = PAOFLOW.PAOFLOW(savedir='output/pt.save', smearing=None)
   paoflow.read_atomic_proj_QE()
   paoflow.projectability()
   paoflow.pao_hamiltonian()

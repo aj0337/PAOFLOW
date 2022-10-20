@@ -1,0 +1,31 @@
+# dev
+
+.vscode/
+
+# build
+
+build/
+dist/
+*egg-info/
+
+# compilation files
+
+*.mod
+*.o
+*.a
+*.x
+
+# config files
+
+iotk
+*.log
+*.status
+*.h
+make.sys
+*.inc
+
+# example/test files
+
+output/
+*.out
+CRASH

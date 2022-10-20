@@ -5,10 +5,10 @@ but may fail if they have been installed in non-standard locations.
 
 The following libraries have been found:
 
-  BLAS_LIBS= -lblas 
-  LAPACK_LIBS= -llapack  -lblas 
-  FFT_LIBS= -lfftw3 
-  IOTK_LIBS=-L/home/marco/Programs/transportPAO/extlibs/iotk/lib -liotk
+  BLAS_LIBS=-L/opt/intel/oneapi/mkl/2022.1.0/lib/intel64 -lmkl_intel_lp64 -lmkl_core -lmkl_sequential -lpthread -lm -ldl
+  LAPACK_LIBS=-L/opt/intel/oneapi/mkl/2022.1.0/lib/intel64 -lmkl_intel_lp64 -lmkl_core -lmkl_sequential -lpthread -lm -ldl
+  FFT_LIBS= -L/opt/intel/oneapi/mkl/2022.1.0/lib/intel64 -lmkl_intel_lp64 -lmkl_core -lmkl_sequential -lpthread -lm -ldl
+  IOTK_LIBS=-L/home/anooja/PAOFLOW_quantran/src/externals/transportPAO/extlibs/iotk/lib -liotk
   @delete@
   @delete@
   @delete@

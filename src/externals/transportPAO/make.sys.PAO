@@ -100,3 +100,5 @@ LIBS           = $(LAPACK_LIBS) $(BLAS_LIBS) $(IOTK_LIBS) $(FFT_LIBS) $(MPI_LIBS
                  $(MASS_LIBS) $(ETSF_IO_LIBS) $(NETCDF_LIBS) \
                  $(MAGMA_LIBS) $(PHIGEMM_LIBS) $(CUDA_LIBS)
 
+export FCFLAGS="-fallow-argument-mismatch"
+export FFLAGS="-fallow-argument-mismatch"

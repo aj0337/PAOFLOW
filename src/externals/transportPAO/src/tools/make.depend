@@ -1,0 +1,20 @@
+q2trans.o : ../baselib/constants.o
+q2trans.o : ../baselib/fft_scalar.o
+q2trans.o : ../baselib/kind.o
+q2trans.o : ../baselib/mp_global.o
+q2trans.o : ../baselib/mp.o
+sax2qexml.o : ../baselib/constants.o
+sax2qexml.o : ../baselib/kind.o
+sax2qexml.o : ../baselib/log_module.o
+sax2qexml.o : ../baselib/mp.o
+sax2qexml.o : ../baselib/parameters.o
+sax2qexml.o : ../baselib/parser.o
+sax2qexml.o : ../baselib/qexml.o
+sax2qexml.o : ../baselib/timing.o
+sax2qexml.o : ../baselib/util.o
+# # sax2qexml.o : @control_module@
+# # sax2qexml.o : @ggrids_module@
+# # sax2qexml.o : @io_module@
+# # sax2qexml.o : @version_module@
+write_ham.o : ../baselib/io_global.o
+write_ham.o : ../baselib/kind.o

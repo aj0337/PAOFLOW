@@ -10,6 +10,7 @@ atmproj_tools.o : ../baselib/timing.o
 atmproj_tools.o : ../baselib/util.o
 atmproj_tools.o : converters.o
 atmproj_tools.o : get_rgrid.o
+atmproj_tools.o : input_parameters.o
 atmproj_tools.o : pseudo_types.o
 cleanup.o : egrid.o
 cleanup.o : hamiltonian.o

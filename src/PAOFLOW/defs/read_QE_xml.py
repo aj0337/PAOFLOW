@@ -379,7 +379,8 @@ def parse_qe_atomic_proj ( data_controller, fname ):
     nspin = 1
 
   wavefunctions = np.empty((nbnds,nawf,nkpnts,nspin), dtype=complex)
-  overlaps = np.empty((nawf,nbnds,nkpnts), dtype=complex) if acbn0 else None
+  # overlaps = np.empty((nawf,nbnds,nkpnts), dtype=complex) # if acbn0 else None
+  overlaps = np.empty((nawf,nawf,nkpnts), dtype=complex) # if acbn0 else None
 
   if qe_version > 6.5:
 
@@ -396,18 +397,18 @@ def parse_qe_atomic_proj ( data_controller, fname ):
             k2 = 2*k
             wavefunctions[k,ind,i,ispin] = complex(text[k2],text[k2+1])
 
-    if acbn0:
-      elem = root.find('OVERLAPS')
-      for i,ovp in enumerate(elem.findall('OVPS')):
-        dim = int(ovp.attrib['dim'])
-        ispin = int(ovp.attrib['spin'])-1
-        text = ovp.text.split()
-        for j in range(len(text)//2):
-          j2 = 2*j
-          i1 = j//dim
-          i2 = j%dim
-          v1,v2 = float(text[j2]),float(text[j2+1])
-          overlaps[i1,i2,i] = complex(v1,v2)
+    # if acbn0:
+    elem = root.find('OVERLAPS')
+    for i,ovp in enumerate(elem.findall('OVPS')):
+      dim = int(ovp.attrib['dim'])
+      ispin = int(ovp.attrib['spin'])-1
+      text = ovp.text.split()
+      for j in range(len(text)//2):
+        j2 = 2*j
+        i1 = j//dim
+        i2 = j%dim
+        v1,v2 = float(text[j2]),float(text[j2+1])
+        overlaps[i1,i2,i] = complex(v1,v2)
 
   else:
 
@@ -426,20 +427,20 @@ def parse_qe_atomic_proj ( data_controller, fname ):
           nele = kpnt.find('SPIN.%d'%(ispin+1))
           read_wf(nele, i, ispin)
 
-    if acbn0:
-      elem = root.find('OVERLAPS')
-      for i,kpnt in enumerate(elem):
-        for j,ovp in enumerate(kpnt):
-          ispin = int(ovp.tag.split('.')[1]) - 1
-          text = ovp.text.replace(',', ' ').split()
-          for k in range(len(text)//2):
-            k0,k1 = k//nbnds,k%nbnds
-            k2 = 2*k
-            v1,v2 = float(text[k2]),float(text[k2+1])
-            overlaps[k0,k1,i] = complex(v1,v2)
+    # if acbn0:
+    elem = root.find('OVERLAPS')
+    for i,kpnt in enumerate(elem):
+      for j,ovp in enumerate(kpnt):
+        ispin = int(ovp.tag.split('.')[1]) - 1
+        text = ovp.text.replace(',', ' ').split()
+        for k in range(len(text)//2):
+          k0,k1 = k//nbnds,k%nbnds
+          k2 = 2*k
+          v1,v2 = float(text[k2]),float(text[k2+1])
+          overlaps[k0,k1,i] = complex(v1,v2)
 
   arrys = [('U',wavefunctions)]
-  if acbn0:
-    arrys += [('Sks',overlaps)]
+  # if acbn0:
+  arrys += [('Sks',overlaps)]
   for s,v in arrys:
     arry[s] = v

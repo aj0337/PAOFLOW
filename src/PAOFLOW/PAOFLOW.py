@@ -383,6 +383,7 @@ class PAOFLOW:
     '''
     from .defs.get_K_grid_fft import get_K_grid_fft
     from .defs.do_build_pao_hamiltonian import do_build_pao_hamiltonian,do_Hks_to_HRs
+    from .defs.get_overlaps import do_Sks_to_SRs
     from .defs.do_Efermi import E_Fermi
 
     # Data Attributes and Arrays
@@ -419,6 +420,7 @@ class PAOFLOW:
 
     try:
       do_Hks_to_HRs(self.data_controller)
+      do_Sks_to_SRs(self.data_controller)
 
       ### PARALLELIZATION
       self.data_controller.broadcast_single_array('HRs')

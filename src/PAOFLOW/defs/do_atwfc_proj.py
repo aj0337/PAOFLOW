@@ -99,7 +99,6 @@ def build_pswfc_basis_all(data_controller):
   dq = 0.01
   qmesh = np.arange(0, np.sqrt(ecutrho) + 4, dq)
   volume = attr['omega']
-  
   # loop over atoms
   basis,shells = [],{}
   arry['jchia'] = {}
@@ -109,7 +108,9 @@ def build_pswfc_basis_all(data_controller):
     r, pswfc, pseudo = read_pswfc_from_upf(data_controller, atom)
     if verbose and rank == 0:
       print('atom: {0:2s}  pseudo: {1:30s}  tau: {2}'.format(atom, pseudo, tau))
-      
+    nao = 0
+    if 'nao' not in arry:
+      arry['nao'] = []
     # loop over pswfc'c
     a_shells = []
     jchia = []
@@ -118,6 +119,7 @@ def build_pswfc_basis_all(data_controller):
     for pao in pswfc:
       l = 'SPDF'.find(pao['label'][1].upper())
       assert l != -1
+      nao += 2*l+1
 
       a_shells.append(l)
       if l == 0:
@@ -128,7 +130,7 @@ def build_pswfc_basis_all(data_controller):
          s = -s
 
       wfc_g = radialfft_simpson(r, pao['wfc'], l, qmesh, volume)
-      
+
       for m in range(1, 2*l+2):
         basis.append({'atom': atom, 'tau': tau, 'l': l, 'm': m, 'label': pao['label'],
           'r': r, 'wfc': pao['wfc'].copy(), 'qmesh': qmesh, 'wfc_g': wfc_g})
@@ -139,9 +141,12 @@ def build_pswfc_basis_all(data_controller):
         if l == 0:
             basis.append({'atom': atom, 'tau': tau, 'l': l, 'm': m, 'label': pao['label'],
               'r': r, 'wfc': pao['wfc'].copy(), 'qmesh': qmesh, 'wfc_g': wfc_g})
+            
             if verbose and rank == 0:
               print('      atwfc: {0:3d}  {3}  l={1:d}, m={2:-d}'.format(len(basis), l, m, pao['label']))
+      
 
+    arry['nao'].append({atom: nao})
     if atom not in shells:
       shells[atom] = a_shells
       arry['jchia'][atom] = jchia
